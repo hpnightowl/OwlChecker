@@ -35,6 +35,12 @@ def data_prep(data):
     repo_url.to_numpy()
     return repo_name, repo_url
 
+def save_results(version, version_satisfied, args):
+    data = get_data(args)
+    data['version'] = version
+    data['version_satisfied'] = version_satisfied
+    data.to_csv('results.csv')
+
 # Where cooking begins
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="This is a program to check the version of the program")
@@ -43,6 +49,5 @@ if __name__ == "__main__":
     data = get_data(args)
     name, url = data_prep(data)
     version = fetch_pkg(len(data),url,args)
-    print(version)
     version_satisfied = compare_version(version,args)
-    print(version_satisfied)
+    save_results(version, version_satisfied,args)
