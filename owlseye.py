@@ -13,7 +13,11 @@ def get_data(args):
 
 # converts the data from input file
 def data_prep(data):
-    pass
+    repo_name = data['name']
+    repo_url = data['repo']
+    repo_name.to_numpy()
+    repo_url.to_numpy()
+    return repo_name, repo_url
 
 # Where cooking begins
 if __name__ == "__main__":
@@ -21,3 +25,5 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input", help="input file", required=True, nargs=2)
     args = parser.parse_args()
     data = get_data(args)
+    name, url = data_prep(data)
+    
