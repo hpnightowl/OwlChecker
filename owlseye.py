@@ -3,12 +3,13 @@ import pandas as pd
 # it is a version check why owlseye name? because it will look for the latest version of the program continuously 
 
 # fetches json data
-def fetch_pkg(n,data):
+def fetch_pkg(n,data,args):
     for link in range(n):
         s = data[link].replace("github.com", "raw.githubusercontent.com")
         s+= "/master/package.json"
-        print(s)
-        
+        dependen_s = pd.read_json(s)
+        current_version = dependen_s['dependencies'][args.input[1].split('@')[0]][1:]
+        print(current_version)
 
 # gets the csv data
 def get_data(args):
@@ -30,4 +31,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     data = get_data(args)
     name, url = data_prep(data)
-    fetch_pkg(len(data),url)
+    fetch_pkg(len(data),url,args)
